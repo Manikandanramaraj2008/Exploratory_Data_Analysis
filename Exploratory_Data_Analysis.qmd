@@ -1,0 +1,241 @@
+---
+title: "Exploratory_data_analysis_EDA"
+author: "KRM"
+format: docx
+editor: visual
+---
+
+## **EXPLORATORY DATA ANALYSIS \_ EDA**
+
+```{r}
+
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(statsr)
+```
+
+Using visual techniques to find the statistical summary of the data.
+
+**Generate questions about data. Give answers by visualising ,transforming the data to build algorithm and modeling help to understand the data**
+
+**statistics** \_ study of collection and analysis of the data...
+
+**data\_** collection of informations
+
+## **steps in EDA**
+
+1.  **sourcing the data** - collection of data public data and private data
+
+    structured and unstructured data
+
+2.  **processing**\_ preprocess the data for processing
+
+    Handling Missing data and invalid data\_ decide impute or delete the data
+
+3.  **cleaning data** \_ to build Models & Algorithms
+
+4.  **feature scaling technique** \_scaling technique used to standardise or normalise the data
+
+5.  univariate /Bivariate / multivariate analysis
+
+6.  derived metrics
+
+**Statistical analysis methods**
+
+-   **Spread** - distribution of data
+
+-   **Dispersion** of data
+
+-   **Variance** of data
+
+-   **Central tendancy** of data
+
+-   **mean / median /mode** of data
+
+-   **Standard deviation / quartile** of data
+
+-   **outliers of data / quantile** of data
+
+-   **Distribution of data \_** finiding distribution of datapoints to understand their range.
+
+**Graphical Visualisation \_** finding the relationship within the data and distribution of variables.
+
+**Outlier detection \_** finding the datapoint which is different from other datapoints. It helps to find the data entry errors and unique cases
+
+**Correlation analysis** \_ finding the relationship between variables understand how they affect each others. It includes computing correlation coefficient and correlation matrices
+
+**Handling Missing values**\_ deciding how to address the missing data based on their impact, imputation or removing.
+
+-   **Delete rows,** if it has insignificant values . (if it has more then 75% missing values) Columns can be deleted,
+
+-   **Replace by using mean** or median for independent numeric variables. if it is categorical variable replace it by **mode**.
+
+-   **Replace by forward or backward imputation** of the value of the variable.
+
+-   **Algorithm imputation \_** for predictive models. algorithm supports handle the missing values, mean, median mode only considered. KNN and Bayes data set randomforest
+
+-   **predicting missing value**\_ advanced technique for target variable.
+
+**Statistics summary** \_ the key statistical calculations provide insights tin to the data trends and naunces.
+
+**Testing Asumptions** \_ Many statistical tests and models, assume the data meet certain conditions. Normality ,homoscedasticity. EDA helps verify these assumptions.
+
+## **Importance of EDA ..?**
+
+**understanding data structures** finding number of features,type of data,distribution of data points. based on it decided appropriate analysis or predictive analysis
+
+**idendtifying patterns and relationship** - reveal hidden patterns and instinct relationships between variables. it helps effective feature engineering and model building
+
+**Detecting Anamolies & Outliers** - finding errors or unusal data points which affect the results of analysis. Detecting earlier, prevent the mistakes in predictive modeling and analysis.
+
+**Testing Assumption** - many statistical models assume data follow the certain distribution or that variable are independent. EDA checking these assumptions. If the assumptions do not hold the conclusion from the model will invalid.
+
+**Feature selection and engineering** - insights gained from EDA help us, to include most releavant in the model and improve the model performance.
+
+**optimizing model design** - understanding the data's characteristics, tune model parameters,decide complexity of the model,choose appropriate modeling techniques.
+
+**Facilitating Data cleaning** -to improve data quality and integrity ,EDA finding missing values errors in data before further analysis.
+
+**Enhancing communications** - visual and statistical summaries, from EDA help data driven insights to convince stakeholders, not having technical background
+
+### TYPES OF EDA
+
+depends on number of columns three types
+
+**Univarite analysis** - describing data and finding patterns,relationship,internal structures and insights in single variable. summarizing and visualizing to relevant tendency.
+
+-   **Histogram** \_visualize distribution of variable
+
+-   **Box plo**t_finding outliers,skewness,spread of the data
+
+-   **Bar chart**\_categorical data frequency of each data
+
+-   **Summary statistics** \_ calculations stdv,mean,mode,shows, central tendancy and dispersion of data.
+
+**Bivariate analyse\_** exploring association,correlation,dependencies between two variables.
+
+-   **Scatter plot**\_visualize relationship between two continuous variables.
+
+-   **Correlation coefficient**\_statitstical measures quantifies degree which two variables are related.(pearson's coefficient correlation for linear relationships)
+
+-   **Cross tabulation /contingency tables**\_distribution of categories of one variable in rows and another in columns, it shows relationship between two categorical variables.cross tabulations used to analyse the data.
+
+-   **Line graphs**\_ context of time series data. compare two variables over a time to find trends,cycles,patterns over specified period.
+
+-   **Covariance** \_ to find how much two random variables change together.. coefficient correlation is the standard assesment to find relationship of the data.
+
+**Multivariate analysis\_ to find relationship between more then two variables**
+
+-   **Pair plots\_** visualize relationship across several variables. simultaneously capture comprehensive view of potential interactions
+
+**Principal Component Analyse\_ PCA** \_ dimensionality reduction technique to reduce dimensionality of large datasets. preserving much variance as possible.
+
+**Spatial Analysis**\_ geographical data,using maps to find geographical distribution of variables
+
+**Time series Analysis**\_ checking modeling styles,seasonality throughout the year for temporal components. Techniques used are auto correlation,ARIMA(Auto Regressive Integrated Moving Average),transferring averages,line plots
+
+**REGRESSION** is the statistic tool understand the relationship between dependent and one or more independent variables.
+
+-   **Linear regression** \_ predicting dependent variable using only one independent variable.
+
+-   **Multi linear regression** \_ predicting dependent variable using multi independent variable
+
+    ### set the directory of the workspace
+
+```{r}
+getwd()
+
+```
+
+### Structure of the data
+
+```{r}
+data(iris)
+str(iris)
+```
+
+**DATA SUMMARIZATION** \*\*\*\*\***Central Tendencies**\*\*\*\*\*\*
+
+```{r}
+sl<-iris$Sepal.Length
+sl
+```
+
+### calculate mean
+
+```{r}
+mean(sl)
+
+```
+
+#### calculate median
+
+```{r}
+median(sl)
+```
+
+#### calculate mode using funciton
+
+```{r}
+mode<-function(x){
+                   u<-unique(x)
+                   u[which.max(tabulate(match(x,u)))] 
+}
+mode(sl)
+  
+
+
+```
+
+**Measure of variability** \*\*\*\*\****calculate standard deviation***\*\*\*\*
+
+```{r}
+sd(sl)
+
+```
+
+#### calculate variance
+
+```{r}
+var(sl)
+```
+
+**Calculate IQR \_Inter quartile range**
+
+(middle 50% of data provide insight)
+
+**IQR** = largest median value Q3 (75% of values in data at third quartile)-smallest median value Q1(25% of values in data at firstquartile) .
+
+divide data in to 4 equal parts **Quartile**
+
+```{r}
+quantile(sl)
+
+```
+
+```{r}
+IQR(sl)
+
+```
+
+**find IQR for all numeric variables in the iris data**
+
+##### IQR \_ **measurement of dispersion of middle half of the value**
+
+```{r}
+data_numeric<-iris[,-(5)]
+data_numeric
+```
+
+**IQR for all numeric variables**
+
+```{r}
+sapply(data_numeric,IQR) # use lapply to get output in vector
+```
+
+**find quartile for all numeric variables in the iris data**
+
+```{r}
+lapply(data_numeric,quantile)
+```
